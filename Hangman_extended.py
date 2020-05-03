@@ -35,7 +35,7 @@ HANGMAN_PICS = ['''
     O   |
    /|\  |
    / \  |
-       ===''','''
+       ===''', '''
        +---+
    [O   |
    /|\  |
@@ -48,21 +48,20 @@ HANGMAN_PICS = ['''
        ==='''
                 ]
 
-words = {"Colors":'red orange yellow green blue indigo violet white black brown'.split(),
-        "Shapes":"square triangle rectangle circle ellipse rhombus trapezoid chevron pentagon hexagon septagon octagon".split(),
-        "Fruits":"apple orange lemon lime pear watermelon grape grapefruit cherry banana cantaloupe mango strawberry tomato".split(),
-        "Animals" : '''ant baboon badger bat bear beaver camel cat clam cobra cougar coyote crow deer dog donkey duck
+words = {"Colors": 'red orange yellow green blue indigo violet white black brown'.split(),
+         "Shapes": "square triangle rectangle circle ellipse rhombus trapezoid chevron pentagon hexagon septagon octagon".split(),
+         "Fruits": "apple orange lemon lime pear watermelon grape grapefruit cherry banana cantaloupe mango strawberry tomato".split(),
+         "Animals": '''ant baboon badger bat bear beaver camel cat clam cobra cougar coyote crow deer dog donkey duck
                     eagle ferret fox frog goat goose hawk lion lizard llama mole monkey moose mouse mule newt otter owl panda 
                     parrot pigeon python rabbit ram rat raven rhino salmon seal shark sheep skunk sloth snake spider stork swan
-                    tiger toad trout turkey turtle weasel whale wolf wombat zebra'''.split() } 
-
+                    tiger toad trout turkey turtle weasel whale wolf wombat zebra'''.split()}
 
 
 
 def getRandomWord(wordDict):
     wordKey = random.choice(list(wordDict.keys()))
-    wordIndex = random.randint(0,len(wordDict[wordKey])-1)
-    return [wordDict[wordKey][wordIndex],wordKey]
+    wordIndex = random.randint(0, len(wordDict[wordKey])-1)
+    return [wordDict[wordKey][wordIndex], wordKey]
 
 
 def displayBoard(missedLetters, correctLetters, secretWord):
@@ -111,7 +110,7 @@ def playAgain():
 
 print("H A N G M A N")
 
-difficulty='X'
+difficulty = 'X'
 while difficulty not in 'EMH':
     print("Enter a difficulty: E - Easy, M - Medium, H - Hard")
     difficulty = input().upper()
@@ -131,36 +130,37 @@ gameIsDone = False
 
 while True:
     print("The secret word is in the set: " + secretSet)
-    displayBoard(missedLetters,correctLetters,secretWord)
+    displayBoard(missedLetters, correctLetters, secretWord)
 
-    #Let the player enter a letter.
+    # Let the player enter a letter.
     guess = getGuess(missedLetters + correctLetters)
 
     if guess in secretWord:
         correctLetters = correctLetters + guess
 
-        #Check if the player has won
+        # Check if the player has won
         foundAllLetters = True
         for i in range(len(secretWord)):
             if secretWord[i] not in correctLetters:
                 foundAllLetters = False
                 break
         if foundAllLetters == True:
-            print('Yes! The secret word is "' + secretWord + '"! You have won!')
+            print('Yes! The secret word is "' +
+                  secretWord + '"! You have won!')
             gameIsDone = True
     else:
         missedLetters = missedLetters + guess
-    
-        #Check if player has guessed too many times and lost
-        if len(missedLetters) == len(HANGMAN_PICS) -1:
-            displayBoard(missedLetters,correctLetters,secretWord)
+
+        # Check if player has guessed too many times and lost
+        if len(missedLetters) == len(HANGMAN_PICS) - 1:
+            displayBoard(missedLetters, correctLetters, secretWord)
             print("You gave run out of guesses!\n After " +
-                str(len(missedLetters)) + " missed guesses and "+
-                str(len(correctLetters)) + " correct guesses, "
-                + ' the word was "' + secretWord + '"') 
+                  str(len(missedLetters)) + " missed guesses and " +
+                  str(len(correctLetters)) + " correct guesses, "
+                  + ' the word was "' + secretWord + '"')
             gameIsDone = True
-            
-    #Ask the player if they want to play again( but only if the game is done)
+
+    # Ask the player if they want to play again( but only if the game is done)
     if gameIsDone:
         if playAgain():
             missedLetters = ''
@@ -169,4 +169,3 @@ while True:
             secretWord, secretSet = getRandomWord(words)
         else:
             break
-                

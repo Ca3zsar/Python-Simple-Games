@@ -101,36 +101,37 @@ secretWord = getRandomWord(words)
 gameIsDone = False
 
 while True:
-    displayBoard(missedLetters,correctLetters,secretWord)
+    displayBoard(missedLetters, correctLetters, secretWord)
 
-    #Let the player enter a letter.
+    # Let the player enter a letter.
     guess = getGuess(missedLetters + correctLetters)
 
     if guess in secretWord:
         correctLetters = correctLetters + guess
 
-        #Check if the player has won
+        # Check if the player has won
         foundAllLetters = True
         for i in range(len(secretWord)):
             if secretWord[i] not in correctLetters:
                 foundAllLetters = False
                 break
         if foundAllLetters == True:
-            print('Yes! The secret word is "' + secretWord + '"! You have won!')
+            print('Yes! The secret word is "' +
+                  secretWord + '"! You have won!')
             gameIsDone = True
     else:
         missedLetters = missedLetters + guess
-    
-        #Check if player has guessed too many times and lost
-        if len(missedLetters) == len(HANGMAN_PICS) -1:
-            displayBoard(missedLetters,correctLetters,secretWord)
+
+        # Check if player has guessed too many times and lost
+        if len(missedLetters) == len(HANGMAN_PICS) - 1:
+            displayBoard(missedLetters, correctLetters, secretWord)
             print("You gave run out of guesses!\n After " +
-                str(len(missedLetters)) + " missed guesses and "+
-                str(len(correctLetters)) + " correct guesses, "
-                + ' the word was "' + secretWord + '"') 
+                  str(len(missedLetters)) + " missed guesses and " +
+                  str(len(correctLetters)) + " correct guesses, "
+                  + ' the word was "' + secretWord + '"')
             gameIsDone = True
-            
-    #Ask the player if they want to play again( but only if the game is done)
+
+    # Ask the player if they want to play again( but only if the game is done)
     if gameIsDone:
         if playAgain():
             missedLetters = ''
@@ -139,4 +140,3 @@ while True:
             secretWord = getRandomWord(words)
         else:
             break
-                
